@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Fraunces, Geist } from "next/font/google";
 import { site } from "@/lib/site";
+import { getOwnerPhoto } from "@/lib/photos";
+import { businessJsonLd } from "@/lib/metadata";
+import { seo } from "@/lib/seo";
+import OwnerPopup from "./OwnerPopup";
 import { SiteFooter, SiteHeader } from "./ui";
 import "./globals.css";
 
@@ -15,11 +19,16 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(seo.siteUrl),
   title: {
-    default: `${site.name} | PG near Udyog Vihar, ${site.city}`,
-    template: `%s | ${site.name}`,
+    default: seo.pages.home.title,
+    template: `%s | ${site.name} Gurugram`,
   },
-  description: `${site.tagline}. Furnished single, double and triple sharing rooms with meals, Wi-Fi, housekeeping and 24×7 security.`,
+  description: seo.pages.home.description,
+  keywords: seo.keywords,
+  applicationName: site.name,
+  robots: { index: true, follow: true },
+  formatDetection: { telephone: true },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -32,6 +41,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />
+        <OwnerPopup photo={getOwnerPhoto()} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(businessJsonLd()) }}
+        />
       </body>
     </html>
   );

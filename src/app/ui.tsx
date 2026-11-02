@@ -6,6 +6,7 @@ export const nav = [
   { href: "/#photos", label: "Photos" },
   { href: "/facilities", label: "Facilities" },
   { href: "/nearby", label: "Nearby" },
+  { href: "/#reviews", label: "Reviews" },
   { href: "/#faq", label: "FAQ" },
   { href: "/#contact", label: "Contact" },
 ];

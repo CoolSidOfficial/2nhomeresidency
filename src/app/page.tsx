@@ -2,10 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import Gallery from "./Gallery";
 import { getGalleryPhotos, getHeroPhoto } from "@/lib/photos";
+import { pageMetadata } from "@/lib/metadata";
 import { Check, SectionHeading } from "./ui";
-import { amenities, faqs, rooms, rules, site } from "@/lib/site";
+import { amenities, faqs, googleReviewUrl, reviews, rooms, rules, site } from "@/lib/site";
+import ReviewForm from "./ReviewForm";
 
-const rupee = (n: number) => `₹${n.toLocaleString("en-IN")}`;
+export const metadata = pageMetadata("home", "/");
+
+const rupee =(n: number) => `₹${n.toLocaleString("en-IN")}`;
 
 export default function Home() {
   const hero = getHeroPhoto();
@@ -178,6 +182,71 @@ export default function Home() {
                 </li>
               ))}
             </ul>
+          </div>
+        </section>
+
+        {/* Reviews */}
+        <section id="reviews" className="border-t border-line bg-surface py-20">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <SectionHeading
+              eyebrow="Reviews"
+              title="What our residents say"
+              text={
+                reviews.length
+                  ? `Rated ${(reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1)} out of 5 by ${reviews.length} resident${reviews.length > 1 ? "s" : ""}.`
+                  : "Stayed with us? We'd love to hear about it."
+              }
+            />
+
+            {reviews.length > 0 ? (
+              <div className="mb-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+                {reviews.map((r, i) => (
+                  <figure key={i} className="flex flex-col rounded-2xl border border-line bg-bg p-6">
+                    <p className="text-lg tracking-wider text-amber-500" aria-label={`${r.rating} out of 5 stars`}>
+                      {"★".repeat(r.rating)}
+                      <span className="text-line">{"★".repeat(5 - r.rating)}</span>
+                    </p>
+                    <blockquote className="mt-3 flex-1 text-ink">“{r.text}”</blockquote>
+                    <figcaption className="mt-5 flex items-center gap-3">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-soft font-semibold text-brand">
+                        {r.name[0]}
+                      </span>
+                      <span>
+                        <span className="block font-semibold">{r.name}</span>
+                        <span className="block text-xs text-muted">
+                          {[r.stayedAs, r.date].filter(Boolean).join(" · ")}
+                        </span>
+                      </span>
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            ) : (
+              <p className="mx-auto mb-12 max-w-md rounded-2xl border-2 border-dashed border-line p-6 text-center text-muted">
+                No reviews yet. Be the first to share your experience!
+              </p>
+            )}
+
+            <div className="mx-auto max-w-2xl rounded-3xl border border-line bg-bg p-6 sm:p-8">
+              <h3 className="font-display text-2xl font-semibold">Write a review</h3>
+              <p className="mb-6 mt-1 text-sm text-muted">
+                Reviews are checked before they appear on the site.
+              </p>
+              <ReviewForm />
+              {googleReviewUrl && (
+                <p className="mt-6 border-t border-line pt-5 text-sm text-muted">
+                  Or{" "}
+                  <a
+                    href={googleReviewUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-brand hover:underline"
+                  >
+                    review us on Google ↗
+                  </a>
+                </p>
+              )}
+            </div>
           </div>
         </section>
 

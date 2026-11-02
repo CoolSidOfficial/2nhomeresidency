@@ -1,13 +1,9 @@
-import type { Metadata } from "next";
 import Image from "next/image";
+import { pageMetadata } from "@/lib/metadata";
 import { amenities, facilityGroups } from "@/lib/site";
 import { CallToAction, Check, PageIntro, SectionHeading } from "../ui";
 
-export const metadata: Metadata = {
-  title: "Room Facilities",
-  description:
-    "Furnished rooms with bed, wardrobe, study table, AC, private kitchenette and attached bathroom with geyser.",
-};
+export const metadata = pageMetadata("facilities", "/facilities");
 
 export default function FacilitiesPage() {
   return (

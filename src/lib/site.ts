@@ -7,9 +7,17 @@ export const site = {
   phone: "+91 8827321270",
   whatsapp: "918827321270", // country code + number, digits only
   email: "shivamdubey17606@gmail.com",
-  // Optional: paste the src URL from Google Maps → Share → "Embed a map" for an exact pin.
-  // If left empty, the map searches for `address` above.
+  
   mapEmbedUrl: "",
+};
+
+// Welcome popup. Put the owner's photo at public/photos/owner.jpg
+export const owner = {
+  name: "Shivam Dubey", // PLACEHOLDER: replace with the owner's name
+  role: "Owner, 2nd Home Residency",
+  message:
+    "Namaste! I personally look after every resident here. Call or WhatsApp me any time to ask questions or book a visit.",
+  delaySeconds: 5, // how long after the page opens the popup appears
 };
 
 export const rooms = [
@@ -45,11 +53,13 @@ export const amenities = [
 ];
 
 export const rules = [
-  "Gate closes at 11:00 PM (late entry with prior notice)",
-  "One month's rent as refundable security deposit",
+  "24x7 entry allowed,Fully independent",
+  "Half  month's rent as refundable security deposit",
   "One month's notice before vacating",
-  "No smoking or alcohol on the premises",
-  "Visitors allowed in the lounge until 8:00 PM",
+  "Everything allowed according to atmosphere",
+  "Visitors allowed 24x7 with valid id proof and free stay for parents with food",
+  "No restrictions of other activites under following Notice restriction",
+
 ];
 
 export const faqs = [
@@ -59,7 +69,7 @@ export const faqs = [
   },
   {
     q: "Is there a minimum stay?",
-    a: "The minimum stay is three months. Shorter stays can be arranged on request.",
+    a: "The minimum stay is three months",
   },
   {
     q: "Can I visit before booking?",
@@ -67,7 +77,19 @@ export const faqs = [
   },
   {
     q: "What documents are needed?",
-    a: "A government photo ID, a recent photograph, and a college or office ID.",
+    a: "A government photo ID, a recent photograph, adhar card , pancard  or office ID.",
+  },
+   {
+    q: "Can I get a rent agreement and police verification ",
+    a: "Yes,you can, but you have to pay the servioe charge of 1k ruppes",
+  },
+   {
+    q: "Can I bring my friends(male/female)",
+    a: "Yes, you can after giving the valid id proofs",
+  },
+  {
+    q: "Can I try free trial food",
+    a: "Yes, you can try the food ",
   },
 ];
 
@@ -199,3 +221,20 @@ export const nearbySearches = [
   "Gym",
   "Restaurant",
 ];
+
+// ---------- Reviews (home page) ----------
+// Visitors submit reviews through the form; they arrive on your WhatsApp.
+// To publish one, copy it here. Only add REAL reviews from real residents.
+//
+// Example:
+//   { name: "Rahul S.", rating: 5, text: "Clean rooms and very helpful owner.", stayedAs: "Resident", date: "Nov 2026" },
+export const reviews: {
+  name: string;
+  rating: 1 | 2 | 3 | 4 | 5;
+  text: string;
+  stayedAs?: string;
+  date?: string;
+}[] = [];
+
+// Optional: your Google Business "Write a review" link. Shows a button when filled in.
+export const googleReviewUrl = "";

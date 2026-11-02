@@ -1,11 +1,8 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { area, nearby, nearbyHighlights, nearbySearches, site } from "@/lib/site";
 import { CallToAction, PageIntro } from "../ui";
 
-export const metadata: Metadata = {
-  title: "Places Nearby",
-  description: `${site.name} in ${area}, ${site.city}: walking distance to hospitals, Vishal Mega Mart and Udyog Vihar offices.`,
-};
+export const metadata = pageMetadata("nearby", "/nearby");
 
 const isWalk = (d: string) => /walking|next door/i.test(d);
 
