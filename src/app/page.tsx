@@ -1,74 +1,42 @@
-import EnquiryForm from "./EnquiryForm";
+import Image from "next/image";
+import Link from "next/link";
+import Gallery from "./Gallery";
+import { getGalleryPhotos, getHeroPhoto } from "@/lib/photos";
+import { Check, SectionHeading } from "./ui";
 import { amenities, faqs, rooms, rules, site } from "@/lib/site";
-
-const nav = [
-  { href: "#rooms", label: "Rooms" },
-  { href: "#amenities", label: "Amenities" },
-  { href: "#rules", label: "House rules" },
-  { href: "#faq", label: "FAQ" },
-  { href: "#contact", label: "Contact" },
-];
 
 const rupee = (n: number) => `₹${n.toLocaleString("en-IN")}`;
 
-function Check() {
-  return (
-    <svg viewBox="0 0 20 20" className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden>
-      <path
-        fill="currentColor"
-        d="M8.1 13.6 4.5 10l-1.1 1.1 4.7 4.7 9-9-1.1-1.1z"
-      />
-    </svg>
-  );
-}
-
-function SectionHeading({ eyebrow, title, text }: { eyebrow: string; title: string; text?: string }) {
-  return (
-    <div className="mx-auto mb-12 max-w-2xl text-center">
-      <p className="text-sm font-semibold uppercase tracking-widest text-brand">{eyebrow}</p>
-      <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">{title}</h2>
-      {text && <p className="mt-4 text-lg text-muted">{text}</p>}
-    </div>
-  );
-}
-
 export default function Home() {
+  const hero = getHeroPhoto();
+  const photos = getGalleryPhotos();
+
   return (
     <>
-      {/* Header */}
-      <header className="sticky top-0 z-20 border-b border-line bg-bg/90 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-          <a href="#" className="font-display text-xl font-semibold">
-            2nd<span className="text-brand">Home</span> Residency
-          </a>
-          <nav className="hidden gap-7 text-sm font-medium text-muted md:flex">
-            {nav.map((n) => (
-              <a key={n.href} href={n.href} className="transition hover:text-ink">
-                {n.label}
-              </a>
-            ))}
-          </nav>
-          <a
-            href={`tel:${site.phone.replace(/\s/g, "")}`}
-            className="rounded-full bg-brand px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-dark"
-          >
-            Call now
-          </a>
-        </div>
-      </header>
-
-      <main className="flex-1">
         {/* Hero */}
-        <section className="relative overflow-hidden">
-          <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:py-28">
-            <div>
-              <p className="inline-block rounded-full bg-soft px-4 py-1.5 text-sm font-medium text-brand">
-                PG for students & working professionals · {site.city}
+        <section className="relative isolate flex min-h-[calc(100svh-4.5rem)] items-center overflow-hidden bg-[#2a211b] text-white">
+          {hero ? (
+            <Image
+              src={hero}
+              alt={`Open dining area at ${site.name}`}
+              fill
+              priority
+              sizes="100vw"
+              className="-z-20 object-cover"
+            />
+          ) : (
+            <div className="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_top_right,#b5542f_0%,#2a211b_65%)]" />
+          )}
+          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/75 via-black/50 to-black/20" />
+          <div className="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6">
+            <div className="max-w-2xl">
+              <p className="inline-block rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium backdrop-blur">
+                PG for working professionals & students · Near Udyog Vihar, {site.city}
               </p>
               <h1 className="mt-6 font-display text-4xl font-semibold leading-tight sm:text-6xl">
                 {site.tagline}.
               </h1>
-              <p className="mt-6 max-w-lg text-lg text-muted">
+              <p className="mt-6 max-w-lg text-lg text-white/80">
                 Fully furnished rooms, home-cooked meals, fast Wi-Fi and round-the-clock
                 security. Just bring your bags.
               </p>
@@ -81,7 +49,7 @@ export default function Home() {
                 </a>
                 <a
                   href="#rooms"
-                  className="rounded-full border border-line bg-surface px-7 py-3 font-semibold transition hover:border-brand"
+                  className="rounded-full border border-white/40 bg-white/10 px-7 py-3 font-semibold backdrop-blur transition hover:bg-white/20"
                 >
                   See rooms & prices
                 </a>
@@ -93,27 +61,11 @@ export default function Home() {
                   ["Security", "24×7"],
                 ].map(([k, v]) => (
                   <div key={k}>
-                    <dt className="text-sm text-muted">{k}</dt>
+                    <dt className="text-sm text-white/70">{k}</dt>
                     <dd className="font-display text-2xl font-semibold">{v}</dd>
                   </div>
                 ))}
               </dl>
-            </div>
-
-            {/* Decorative illustration: replace with a real photo via next/image */}
-            <div className="relative mx-auto aspect-square w-full max-w-md">
-              <div className="absolute inset-0 rotate-3 rounded-[2.5rem] bg-soft" />
-              <div className="absolute inset-0 -rotate-2 overflow-hidden rounded-[2.5rem] border border-line bg-surface shadow-xl">
-                <svg viewBox="0 0 400 400" className="h-full w-full" aria-hidden>
-                  <rect width="400" height="400" fill="var(--soft)" />
-                  <path d="M80 200 200 100l120 100v150H80z" fill="var(--surface)" stroke="var(--brand)" strokeWidth="6" strokeLinejoin="round" />
-                  <path d="M60 215 200 95l140 120" fill="none" stroke="var(--brand)" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" />
-                  <rect x="175" y="270" width="50" height="80" rx="6" fill="var(--brand)" />
-                  <rect x="110" y="220" width="45" height="40" rx="4" fill="var(--soft)" stroke="var(--brand)" strokeWidth="4" />
-                  <rect x="245" y="220" width="45" height="40" rx="4" fill="var(--soft)" stroke="var(--brand)" strokeWidth="4" />
-                  <circle cx="200" cy="175" r="16" fill="var(--soft)" stroke="var(--brand)" strokeWidth="4" />
-                </svg>
-              </div>
             </div>
           </div>
         </section>
@@ -168,8 +120,20 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Photos */}
+        <section id="photos" className="py-20">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <SectionHeading
+              eyebrow="Photos"
+              title="Take a look around"
+              text="Swipe or use the arrows to browse. Tap a photo to see it full screen."
+            />
+            <Gallery photos={photos} />
+          </div>
+        </section>
+
         {/* Amenities */}
-        <section id="amenities" className="py-20">
+        <section id="amenities" className="border-t border-line bg-surface py-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <SectionHeading
               eyebrow="Amenities"
@@ -177,7 +141,7 @@ export default function Home() {
             />
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {amenities.map((a) => (
-                <div key={a.title} className="rounded-2xl border border-line bg-surface p-6">
+                <div key={a.title} className="rounded-2xl border border-line bg-bg p-6">
                   <div className="mb-4 h-10 w-10 rounded-xl bg-soft p-2.5">
                     <Check />
                   </div>
@@ -186,6 +150,11 @@ export default function Home() {
                 </div>
               ))}
             </div>
+            <p className="mt-10 text-center">
+              <Link href="/facilities" className="font-semibold text-brand hover:underline">
+                See all room facilities →
+              </Link>
+            </p>
           </div>
         </section>
 
@@ -242,7 +211,7 @@ export default function Home() {
                 Come see it for yourself
               </h2>
               <p className="mt-4 text-lg text-muted">
-                Visits any day, 10 AM to 7 PM. Send an enquiry and we&apos;ll get back within a few hours.
+                Visits any day, 10 AM to 7 PM. Call or WhatsApp us to schedule your visit.
               </p>
               <dl className="mt-8 space-y-5">
                 <div>
@@ -266,42 +235,29 @@ export default function Home() {
                   </dd>
                 </div>
               </dl>
-              {site.mapEmbedUrl && (
-                <iframe
-                  src={site.mapEmbedUrl}
-                  title="Map"
-                  loading="lazy"
-                  className="mt-8 h-64 w-full rounded-2xl border border-line"
-                />
-              )}
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-8 inline-block rounded-full bg-brand px-7 py-3 font-semibold text-white transition hover:bg-brand-dark"
+              >
+                Get directions
+              </a>
             </div>
-            <div className="rounded-2xl border border-line bg-bg p-6 sm:p-8 lg:col-span-3">
-              <h3 className="mb-6 font-display text-2xl font-semibold">Send an enquiry</h3>
-              <EnquiryForm />
+            <div className="min-h-80 overflow-hidden rounded-2xl border border-line lg:col-span-3">
+              <iframe
+                src={
+                  site.mapEmbedUrl ||
+                  `https://www.google.com/maps?q=${encodeURIComponent(site.address)}&output=embed`
+                }
+                title={`Map showing ${site.name}`}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="h-full min-h-80 w-full"
+              />
             </div>
           </div>
         </section>
-      </main>
-
-      <footer className="border-t border-line py-8">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 text-sm text-muted sm:flex-row sm:px-6">
-          <p>© {site.name}</p>
-          <p>{site.address}</p>
-        </div>
-      </footer>
-
-      {/* Floating WhatsApp button */}
-      <a
-        href={`https://wa.me/${site.whatsapp}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Chat on WhatsApp"
-        className="fixed bottom-5 right-5 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition hover:scale-105"
-      >
-        <svg viewBox="0 0 24 24" className="h-7 w-7" fill="currentColor" aria-hidden>
-          <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.1.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.1.1.6-.1 1.2z" />
-        </svg>
-      </a>
     </>
   );
 }
