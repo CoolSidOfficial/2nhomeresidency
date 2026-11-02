@@ -4,9 +4,9 @@ export const site = {
   tagline: "A PG that feels like home",
   city: "Gurugram",
   address: "H. No. 104, Street No. 11, near Shiv Mandir, Gurugram, Haryana 122016",
-  phone: "+91 84604 74476",
-  whatsapp: "918460474476", // country code + number, digits only
-  email: "hello@2ndhomeresidency.in",
+  phone: "+91 8827321270",
+  whatsapp: "918827321270", // country code + number, digits only
+  email: "shivamdubey17606@gmail.com",
   // Optional: paste the src URL from Google Maps → Share → "Embed a map" for an exact pin.
   // If left empty, the map searches for `address` above.
   mapEmbedUrl: "",
